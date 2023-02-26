@@ -28,11 +28,11 @@ EXPORT(_start_mips)
 	/* use 'sw  t1, <x>(sp)' to store t1 at the proper place of the stack */
 	/* so that t1 is 5th argument of function hello */
 	/* Your code here. (4/6) */
-        sw t1,8(sp)
+        sw t1,16(sp)
 	/* use 'sw  t2, <x>(sp)' to store t2 at the proper place of the stack */
 	/* so that t2 is 6th argument of function hello */
 	/* Your code here. (5/6) */
-        sw t2,4(sp)
+        sw t2,20(sp)
 	/* use 'j' to call the function 'hello', we use 'j' instead of 'jal' because 'hello' is 'noreturn' */
 	/* Your code here. (6/6) */
 	j hello
