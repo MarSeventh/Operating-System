@@ -1,11 +1,20 @@
 #include <blib.h>
 
 size_t strlen(const char *s) {
-	panic("please implement");
+	size_t len=0;
+	while(s[len]!='\0'){
+               len++;
+	}
+	return len;
 }
 
 char *strcpy(char *dst, const char *src) {
-	panic("please implement");
+	char *res = dst;
+	while(*src){
+		*dst++=*src++;
+	}
+	*dst='\0';
+	return res;
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
@@ -18,11 +27,29 @@ char *strncpy(char *dst, const char *src, size_t n) {
 }
 
 char *strcat(char *dst, const char *src) {
-	panic("please implement");
+	char *res = dst;
+	while(*dst){
+		dst++;
+	}
+        while(*src){
+                *dst++ = *src++;
+	}
+	*dst = '\0';
+	return res;
 }
 
 int strcmp(const char *s1, const char *s2) {
-	panic("please implement");
+	while(*s1 && *s2){
+		if(*s1<*s2){
+			return -1;
+		}
+		else if (*s1>*s2){
+			return 1;
+		}
+	}
+	if(*s1) return 1;
+	else if(*s2) return -1;
+	else return 0;
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
@@ -40,7 +67,11 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 void *memset(void *s, int c, size_t n) {
-	panic("please implement");
+	char *cdest = (char *)s;
+	while(n--){
+		*cdest++ = c;
+	}
+	return s;
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
@@ -53,5 +84,13 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-	panic("please implement");
+	char *c1 = (char *)s1;
+	char *c2 = (char *)s2;
+	while(n--){
+		if(*c1 < *c2) return -1;
+		else if(*c1 > *c2) return 1;
+		c1++;
+		c2++;
+	}
+	return 0;
 }
