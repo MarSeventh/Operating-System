@@ -4,9 +4,8 @@ int main() {
 	scanf("%d", &n);
         char str[100] = {};
 	int i=0;
-	while(n){
+	while(n%10){
 		str[i++] = n%10;
-		n/=10;
 	}
 	int flag=0;
 	for(int j=0;j<i/2;j++){
