@@ -1,6 +1,6 @@
 #include <stdio.h>
 int main() {
-/*	int n;
+	int n;
 	scanf("%d", &n);
         char str[10] = {};
 	int i=0;
@@ -16,6 +16,6 @@ int main() {
 		printf("Y\n");
 	} else {
 		printf("N\n");
-	}*/
+	}
 	return 0;
 }
