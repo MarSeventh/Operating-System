@@ -1,8 +1,8 @@
 #include <stdio.h>
 int main() {
-	int n;
+/*	int n;
 	scanf("%d", &n);
-        char str[100] = {};
+        char str[10] = {};
 	int i=0;
 	while(n){
 		str[i++] = n%10;
@@ -16,6 +16,6 @@ int main() {
 		printf("Y\n");
 	} else {
 		printf("N\n");
-	}
+	}*/
 	return 0;
 }
