@@ -2,10 +2,11 @@
 int main() {
 	int n;
 	scanf("%d", &n);
-        char str[100] = {};
+        char str[10] = {};
 	int i=0;
-	while(n%10){
+	while(n){
 		str[i++] = n%10;
+		n/=10;
 	}
 	int flag=0;
 	for(int j=0;j<i/2;j++){
