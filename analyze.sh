@@ -15,8 +15,13 @@ else
 
     ;;
     "--diff")
-        diff -sq $1 $3
-
+       diff  $1 $3 > /dev/null
+       if [ $? -eq 0 ]
+       then    
+               echo same
+       else 
+	       echo different
+       fi 
     ;;
     esac
 fi
