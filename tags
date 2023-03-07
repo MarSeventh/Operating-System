@@ -1,0 +1,146 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/git/21373347/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+%.o	Makefile	/^%.o: %.S$/;"	t
+%.o	Makefile	/^%.o: %.c$/;"	t
+.bss	linker.lds	/^	.bss  : {$/;"	S
+.data	linker.lds	/^	.data : {$/;"	S
+.text	linker.lds	/^	.text : {$/;"	S
+AT	include/asm/regdef.h	/^#define AT /;"	d
+CC	Makefile	/^CC             := $(CROSS_COMPILE)gcc$/;"	m
+CP0_BADVADDR	include/asm/cp0regdef.h	/^#define CP0_BADVADDR /;"	d
+CP0_CACHEERR	include/asm/cp0regdef.h	/^#define CP0_CACHEERR /;"	d
+CP0_CAUSE	include/asm/cp0regdef.h	/^#define CP0_CAUSE /;"	d
+CP0_COMPARE	include/asm/cp0regdef.h	/^#define CP0_COMPARE /;"	d
+CP0_CONFIG	include/asm/cp0regdef.h	/^#define CP0_CONFIG /;"	d
+CP0_CONTEXT	include/asm/cp0regdef.h	/^#define CP0_CONTEXT /;"	d
+CP0_COUNT	include/asm/cp0regdef.h	/^#define CP0_COUNT /;"	d
+CP0_DIAGNOSTIC	include/asm/cp0regdef.h	/^#define CP0_DIAGNOSTIC /;"	d
+CP0_ECC	include/asm/cp0regdef.h	/^#define CP0_ECC /;"	d
+CP0_ENTRYHI	include/asm/cp0regdef.h	/^#define CP0_ENTRYHI /;"	d
+CP0_ENTRYLO0	include/asm/cp0regdef.h	/^#define CP0_ENTRYLO0 /;"	d
+CP0_ENTRYLO1	include/asm/cp0regdef.h	/^#define CP0_ENTRYLO1 /;"	d
+CP0_EPC	include/asm/cp0regdef.h	/^#define CP0_EPC /;"	d
+CP0_ERROREPC	include/asm/cp0regdef.h	/^#define CP0_ERROREPC /;"	d
+CP0_FRAMEMASK	include/asm/cp0regdef.h	/^#define CP0_FRAMEMASK /;"	d
+CP0_INDEX	include/asm/cp0regdef.h	/^#define CP0_INDEX /;"	d
+CP0_LLADDR	include/asm/cp0regdef.h	/^#define CP0_LLADDR /;"	d
+CP0_PAGEMASK	include/asm/cp0regdef.h	/^#define CP0_PAGEMASK /;"	d
+CP0_PERFORMANCE	include/asm/cp0regdef.h	/^#define CP0_PERFORMANCE /;"	d
+CP0_PRID	include/asm/cp0regdef.h	/^#define CP0_PRID /;"	d
+CP0_RANDOM	include/asm/cp0regdef.h	/^#define CP0_RANDOM /;"	d
+CP0_STATUS	include/asm/cp0regdef.h	/^#define CP0_STATUS /;"	d
+CP0_TAGHI	include/asm/cp0regdef.h	/^#define CP0_TAGHI /;"	d
+CP0_TAGLO	include/asm/cp0regdef.h	/^#define CP0_TAGLO /;"	d
+CP0_WATCHHI	include/asm/cp0regdef.h	/^#define CP0_WATCHHI /;"	d
+CP0_WATCHLO	include/asm/cp0regdef.h	/^#define CP0_WATCHLO /;"	d
+CP0_WIRED	include/asm/cp0regdef.h	/^#define CP0_WIRED /;"	d
+CP0_XCONTEXT	include/asm/cp0regdef.h	/^#define CP0_XCONTEXT /;"	d
+CROSS_COMPILE	Makefile	/^CROSS_COMPILE  := mips-linux-gnu-$/;"	m
+DEV_CONS_HALT_OFFSET	include/machine.h	/^#define DEV_CONS_HALT_OFFSET /;"	d
+DEV_CONS_PADDR	include/machine.h	/^#define DEV_CONS_PADDR /;"	d
+DEV_CONS_PUTGETCHAR_OFFSET	include/machine.h	/^#define DEV_CONS_PUTGETCHAR_OFFSET /;"	d
+DEV_RAM_PADDR_HIGH	include/machine.h	/^#define DEV_RAM_PADDR_HIGH /;"	d
+DEV_RAM_PADDR_LOW	include/machine.h	/^#define DEV_RAM_PADDR_LOW /;"	d
+END	include/asm/asm.h	/^#define END(/;"	d
+ENDIAN	Makefile	/^ENDIAN         := EL$/;"	m
+EXPORT	include/asm/asm.h	/^#define EXPORT(/;"	d
+FEXPORT	include/asm/asm.h	/^#define FEXPORT(/;"	d
+GETCHAR_ADDRESS	include/machine.h	/^#define GETCHAR_ADDRESS /;"	d
+HALT_ADDRESS	include/machine.h	/^#define HALT_ADDRESS /;"	d
+INCLUDES	Makefile	/^INCLUDES       := -I.\/include$/;"	m
+KSEG0_VADDR_HIGH	include/machine.h	/^#define KSEG0_VADDR_HIGH /;"	d
+KSEG0_VADDR_LOW	include/machine.h	/^#define KSEG0_VADDR_LOW /;"	d
+KSEG1_VADDR_HIGH	include/machine.h	/^#define KSEG1_VADDR_HIGH /;"	d
+KSEG1_VADDR_LOW	include/machine.h	/^#define KSEG1_VADDR_LOW /;"	d
+KUSEG_VADDR_HIGH	include/machine.h	/^#define KUSEG_VADDR_HIGH /;"	d
+KUSEG_VADDR_LOW	include/machine.h	/^#define KUSEG_VADDR_LOW /;"	d
+LD	Makefile	/^LD             := $(CROSS_COMPILE)ld$/;"	m
+LEAF	include/asm/asm.h	/^#define LEAF(/;"	d
+NESTED	include/asm/asm.h	/^#define NESTED(/;"	d
+NULL	include/blib.h	/^#define NULL /;"	d
+PUTCHAR_ADDRESS	include/machine.h	/^#define PUTCHAR_ADDRESS /;"	d
+STATUS_CU0	include/asm/cp0regdef.h	/^#define STATUS_CU0 /;"	d
+STATUS_IEc	include/asm/cp0regdef.h	/^#define STATUS_IEc /;"	d
+STATUS_IEp	include/asm/cp0regdef.h	/^#define STATUS_IEp /;"	d
+STATUS_IM4	include/asm/cp0regdef.h	/^#define STATUS_IM4 /;"	d
+STATUS_KUc	include/asm/cp0regdef.h	/^#define STATUS_KUc /;"	d
+STATUS_KUp	include/asm/cp0regdef.h	/^#define STATUS_KUp /;"	d
+STRINGIFY	include/blib_macros.h	/^#define STRINGIFY(/;"	d
+TOSTRING	include/blib_macros.h	/^#define TOSTRING(/;"	d
+_BLIB_H	include/blib.h	/^#define _BLIB_H$/;"	d
+_BLIB_MACROS_H__	include/blib_macros.h	/^#define _BLIB_MACROS_H__$/;"	d
+_MACHINE_H	include/machine.h	/^#define _MACHINE_H$/;"	d
+__ASM_MIPS_REGDEF_H	include/asm/regdef.h	/^#define __ASM_MIPS_REGDEF_H$/;"	d
+_cp0regdef_h_	include/asm/cp0regdef.h	/^#define _cp0regdef_h_$/;"	d
+a0	include/asm/regdef.h	/^#define a0 /;"	d
+a1	include/asm/regdef.h	/^#define a1 /;"	d
+a2	include/asm/regdef.h	/^#define a2 /;"	d
+a3	include/asm/regdef.h	/^#define a3 /;"	d
+all	Makefile	/^all: $(objs)$/;"	t
+at	start.S	/^.set at$/;"	d
+clean	Makefile	/^clean:$/;"	t
+dbg	Makefile	/^dbg: gxemul_flags += -V$/;"	t
+dbg	Makefile	/^dbg: run$/;"	t
+fp	include/asm/regdef.h	/^#define fp /;"	d
+gp	include/asm/regdef.h	/^#define gp /;"	d
+jp	include/asm/regdef.h	/^#define jp /;"	d
+k0	include/asm/regdef.h	/^#define k0 /;"	d
+k1	include/asm/regdef.h	/^#define k1 /;"	d
+link_script	Makefile	/^link_script    := linker.lds$/;"	m
+m_getch	machine.c	/^char m_getch(void) {$/;"	f	typeref:typename:char
+m_halt	machine.c	/^void m_halt(void) {$/;"	f	typeref:typename:void
+m_putch	machine.c	/^void m_putch(char ch) {$/;"	f	typeref:typename:void
+main	test.c	/^int main() {$/;"	f	typeref:typename:int
+memcmp	blib.c	/^int memcmp(const void *s1, const void *s2, size_t n) {$/;"	f	typeref:typename:int
+memcpy	blib.c	/^void *memcpy(void *out, const void *in, size_t n) {$/;"	f	typeref:typename:void *
+memset	blib.c	/^void *memset(void *s, int c, size_t n) {$/;"	f	typeref:typename:void *
+objs	Makefile	/^objs           := blib.o machine.o start.o test.o$/;"	m
+panic	include/blib_macros.h	/^#define panic(/;"	d
+panic_on	include/blib_macros.h	/^#define panic_on(/;"	d
+putstr	include/blib_macros.h	/^#define putstr(/;"	d
+ra	include/asm/regdef.h	/^#define ra /;"	d
+reorder	start.S	/^.set reorder$/;"	d
+run	Makefile	/^run:$/;"	t
+s	test.c	/^const char *s[] = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",$/;"	v	typeref:typename:const char * []
+s0	include/asm/regdef.h	/^#define s0 /;"	d
+s1	include/asm/regdef.h	/^#define s1 /;"	d
+s2	include/asm/regdef.h	/^#define s2 /;"	d
+s3	include/asm/regdef.h	/^#define s3 /;"	d
+s4	include/asm/regdef.h	/^#define s4 /;"	d
+s5	include/asm/regdef.h	/^#define s5 /;"	d
+s6	include/asm/regdef.h	/^#define s6 /;"	d
+s7	include/asm/regdef.h	/^#define s7 /;"	d
+s8	include/asm/regdef.h	/^#define s8 /;"	d
+size_t	include/blib.h	/^typedef unsigned int size_t;$/;"	t	typeref:typename:unsigned int
+sp	include/asm/regdef.h	/^#define sp /;"	d
+str	test.c	/^char str[20];$/;"	v	typeref:typename:char[20]
+str1	test.c	/^char str1[] = "Hello";$/;"	v	typeref:typename:char[]
+strcat	blib.c	/^char *strcat(char *dst, const char *src) {$/;"	f	typeref:typename:char *
+strcmp	blib.c	/^int strcmp(const char *s1, const char *s2) {$/;"	f	typeref:typename:int
+strcpy	blib.c	/^char *strcpy(char *dst, const char *src) {$/;"	f	typeref:typename:char *
+strlen	blib.c	/^size_t strlen(const char *s) {$/;"	f	typeref:typename:size_t
+strncmp	blib.c	/^int strncmp(const char *s1, const char *s2, size_t n) {$/;"	f	typeref:typename:int
+strncpy	blib.c	/^char *strncpy(char *dst, const char *src, size_t n) {$/;"	f	typeref:typename:char *
+t0	include/asm/regdef.h	/^#define t0 /;"	d
+t1	include/asm/regdef.h	/^#define t1 /;"	d
+t2	include/asm/regdef.h	/^#define t2 /;"	d
+t3	include/asm/regdef.h	/^#define t3 /;"	d
+t4	include/asm/regdef.h	/^#define t4 /;"	d
+t5	include/asm/regdef.h	/^#define t5 /;"	d
+t6	include/asm/regdef.h	/^#define t6 /;"	d
+t7	include/asm/regdef.h	/^#define t7 /;"	d
+t8	include/asm/regdef.h	/^#define t8 /;"	d
+t9	include/asm/regdef.h	/^#define t9 /;"	d
+target	Makefile	/^target         := runbin$/;"	m
+v0	include/asm/regdef.h	/^#define v0 /;"	d
+v1	include/asm/regdef.h	/^#define v1 /;"	d
+zero	include/asm/regdef.h	/^#define zero /;"	d
