@@ -161,6 +161,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 				  c = ',';
 				  print_char(out, data, c, 1, 0);
 			  }
+			  neg_flag = 0;
 			}
 			c = ')';
 			print_char(out, data, c, 1, 0);

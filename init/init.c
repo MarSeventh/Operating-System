@@ -13,7 +13,10 @@
 
 void mips_init() {
 	printk("init.c:\tmips_init() is called\n");
-
+        printk("%-5R",12,23);
+	printk("%05R",12,23);
+	printk("%03R",-2,12);
+	printk("%-05d",12);
 	// lab2:
 	// mips_detect_memory();
 	// mips_vm_init();
