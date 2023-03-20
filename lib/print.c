@@ -9,6 +9,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 	char c;
 	const char *s;
 	long num;
+	long num1;
 
 	int width;
 	int long_flag; // output is long (rather than int)
@@ -141,7 +142,29 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 			s = (char *)va_arg(ap, char *);
 			print_str(out, data, s, width, ladjust);
 			break;
-
+                
+		case 'R':
+		        c = '(';
+			print_char(out, data, c, 1, 0);
+			for(int i=0;i<2;i++){
+			 if (long_flag) {
+                                  num = va_arg(ap, long int);
+                          } else {
+                                  num = va_arg(ap, int);
+                          }
+                          if (num < 0){
+                                  neg_flag=1;
+                                  num = -num;
+                          }
+                          print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
+			  if(i == 0){
+				  c = ',';
+				  print_char(out, data, c, 1, 0);
+			  }
+			}
+			c = ')';
+			print_char(out, data, c, 1, 0);
+			break;
 		case '\0':
 			fmt--;
 			break;
