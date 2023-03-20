@@ -13,7 +13,11 @@
 
 void mips_init() {
 	printk("init.c:\tmips_init() is called\n");
-
+        char str[100];
+        sprintf(str, "%d\n", 12321);
+        printk("%s", str);
+	sprintf(str, "%c\n", 'a');
+	printk("%s", str);  
 	// lab2:
 	// mips_detect_memory();
 	// mips_vm_init();

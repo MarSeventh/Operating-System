@@ -9,5 +9,6 @@ size_t strlen(const char *s);
 char *strcpy(char *dst, const char *src);
 const char *strchr(const char *s, int c);
 int strcmp(const char *p, const char *q);
-
+int sprintf(char *buf, const char *fmt, ...);
+void outputf(void *data, const char *buf, size_t len);
 #endif
