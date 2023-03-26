@@ -110,7 +110,7 @@ int sprintf(char *buf, const char *fmt, ...){
        	memset(buffer, 0, strlen(buffer));
         va_list ap;
         va_start(ap, fmt);
-        vprintfmt(outputf, buffer, fmt, ap);
+        vprintfmt(outputf,(void *)buffer, fmt, ap);
         va_end(ap);
 	return strlen(buffer);
  }

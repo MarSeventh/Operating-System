@@ -14,7 +14,7 @@
 void mips_init() {
 	printk("init.c:\tmips_init() is called\n");
         char str[100];
-        printk("%d\n",sprintf(str, "%d\n", 12321));
+        printk("%d\n",sprintf(str, "%-9d%s\n", 12321,"hello"));
         printk("%s", str);
 	printk("%d\n",sprintf(str, "%c\n", 'a'));
 	printk("%s", str);
