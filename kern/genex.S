@@ -44,3 +44,4 @@ BUILD_HANDLER sys do_syscall
 #endif
 
 BUILD_HANDLER reserved do_reserved
+BUILD_HANDLER ov do_ov
