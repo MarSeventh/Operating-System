@@ -36,8 +36,9 @@ void do_ov(struct Trapframe *tf) {
 	struct Page *pp;
         pp = page_lookup(curenv->env_pgdir, va, NULL);
 	panic_on(pp == NULL);
-	u_long paddress = page2pa(pp) | (va & 0xfff);
-	u_long new_va = KADDR(paddress);
+//	u_long paddress = page2pa(pp) | (va & 0xfff);
+//	u_long new_va = KADDR(paddress);
+        u_long new_va = page2kva(pp) | (va & 0xfff);
         u_int *pt = (u_int *)new_va;
 	u_int name = *pt;
 	if((name >> 26) == 0 &&((name << 21)>>21) == 0x20){
