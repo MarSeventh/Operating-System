@@ -6,6 +6,7 @@ int main() {
 	debugf("fktest on ostest!\n");
 	if ((id = fork()) == 0) {
 		if ((id = fork()) == 0) {
+			debugf("chile go\n");
 			if ((id = fork()) == 0) {
 				if ((id = fork()) == 0) {
 					a += 5;

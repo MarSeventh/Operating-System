@@ -120,6 +120,9 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
 	/* Exercise 4.3: Your code here. (1/2) */
         if(envid == 0){
 		e = curenv;
+		if(e->env_status == ENV_FREE) return -E_BAD_ENV;
+                *penv = e;
+		return 0;
 	}else{
 		e = &envs[ENVX(envid)];
 	}
