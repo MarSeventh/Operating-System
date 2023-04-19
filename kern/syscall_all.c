@@ -96,10 +96,10 @@ int sys_set_tlb_mod_entry(u_int envid, u_int func) {
 
 	/* Step 1: Convert the envid to its corresponding 'struct Env *' using 'envid2env'. */
 	/* Exercise 4.12: Your code here. (1/2) */
-
+        try(envid2env(envid, &env, 1));
 	/* Step 2: Set its 'env_user_tlb_mod_entry' to 'func'. */
 	/* Exercise 4.12: Your code here. (2/2) */
-
+        func = env->env_user_tlb_mod_entry;
 	return 0;
 }
 
@@ -232,16 +232,17 @@ int sys_exofork(void) {
 
 	/* Step 1: Allocate a new env using 'env_alloc'. */
 	/* Exercise 4.9: Your code here. (1/4) */
-
+        try(env_alloc(&e, curenv->env_id));
 	/* Step 2: Copy the current Trapframe below 'KSTACKTOP' to the new env's 'env_tf'. */
 	/* Exercise 4.9: Your code here. (2/4) */
-
+        e->env_tf = *((struct Trapframe *)KSTACKTOP - 1);
 	/* Step 3: Set the new env's 'env_tf.regs[2]' to 0 to indicate the return value in child. */
 	/* Exercise 4.9: Your code here. (3/4) */
-
+        e->env_tf.regs[2] = 0;
 	/* Step 4: Set up the new env's 'env_status' and 'env_pri'.  */
 	/* Exercise 4.9: Your code here. (4/4) */
-
+        e->env_status = ENV_NOT_RUNNABLE;
+	e->env_pri = curenv->env_pri;
 	return e->env_id;
 }
 
@@ -262,13 +263,19 @@ int sys_set_env_status(u_int envid, u_int status) {
 
 	/* Step 1: Check if 'status' is valid. */
 	/* Exercise 4.14: Your code here. (1/3) */
-
+        if(status != ENV_RUNNABLE && status != ENV_NOT_RUNNABLE) return -E_INVAL;
 	/* Step 2: Convert the envid to its corresponding 'struct Env *' using 'envid2env'. */
 	/* Exercise 4.14: Your code here. (2/3) */
-
+        try(envid2env(envid, &env, 1));
 	/* Step 3: Update 'env_sched_list' if the 'env_status' of 'env' is being changed. */
 	/* Exercise 4.14: Your code here. (3/3) */
-
+        if(env->env_status != status){
+		if(status == ENV_RUNNABLE){
+			TAILQ_INSERT_TAIL(&env_sched_list, env, env_sched_link);
+		}else{
+			TAILQ_REMOVE(&env_sched_list, env, env_sched_link);
+		}
+	}
 	/* Step 4: Set the 'env_status' of 'env'. */
 	env->env_status = status;
 	return 0;
@@ -330,11 +337,12 @@ int sys_ipc_recv(u_int dstva) {
         curenv->env_ipc_recving = 1;
 	/* Step 3: Set the value of 'curenv->env_ipc_dstva'. */
 	/* Exercise 4.8: Your code here. (2/8) */
-
+        curenv->env_ipc_dstva = dstva;
 	/* Step 4: Set the status of 'curenv' to 'ENV_NOT_RUNNABLE' and remove it from
 	 * 'env_sched_list'. */
 	/* Exercise 4.8: Your code here. (3/8) */
-
+        curenv->env_status = ENV_NOT_RUNNABLE;
+        TAILQ_REMOVE(&env_sched_list, curenv, env_sched_link);	
 	/* Step 5: Give up the CPU and block until a message is received. */
 	((struct Trapframe *)KSTACKTOP - 1)->regs[2] = 0;
 	schedule(1);
@@ -362,15 +370,15 @@ int sys_ipc_try_send(u_int envid, u_int value, u_int srcva, u_int perm) {
 
 	/* Step 1: Check if 'srcva' is either zero or a legal address. */
 	/* Exercise 4.8: Your code here. (4/8) */
-
+        if(srcva != 0 && is_illegal_va(srcva)) return -E_INVAL;
 	/* Step 2: Convert 'envid' to 'struct Env *e'. */
 	/* This is the only syscall where the 'envid2env' should be used with 'checkperm' UNSET,
 	 * because the target env is not restricted to 'curenv''s children. */
 	/* Exercise 4.8: Your code here. (5/8) */
-
+        try(envid2env(envid, &e, 0));
 	/* Step 3: Check if the target is waiting for a message. */
 	/* Exercise 4.8: Your code here. (6/8) */
-
+        if(e->env_ipc_recving == 0) return -E_IPC_NOT_RECV;
 	/* Step 4: Set the target's ipc fields. */
 	e->env_ipc_value = value;
 	e->env_ipc_from = curenv->env_id;
@@ -380,13 +388,17 @@ int sys_ipc_try_send(u_int envid, u_int value, u_int srcva, u_int perm) {
 	/* Step 5: Set the target's status to 'ENV_RUNNABLE' again and insert it to the tail of
 	 * 'env_sched_list'. */
 	/* Exercise 4.8: Your code here. (7/8) */
-
+        e->env_status = ENV_RUNNABLE;
+	TAILQ_INSERT_TAIL(&env_sched_list, e, env_sched_link);
 	/* Step 6: If 'srcva' is not zero, map the page at 'srcva' in 'curenv' to 'e->env_ipc_dstva'
 	 * in 'e'. */
 	/* Return -E_INVAL if 'srcva' is not zero and not mapped in 'curenv'. */
 	if (srcva != 0) {
 		/* Exercise 4.8: Your code here. (8/8) */
-
+                struct Page *pp;
+                pp = page_lookup(curenv->env_pgdir, srcva, NULL);
+		if(pp == NULL) return -E_INVAL;
+		try(page_insert(e->env_pgdir, e->env_asid, pp, e->env_ipc_dstva, perm));
 	}
 	return 0;
 }
