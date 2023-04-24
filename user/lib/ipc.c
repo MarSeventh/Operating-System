@@ -37,3 +37,18 @@ u_int ipc_recv(u_int *whom, void *dstva, u_int *perm) {
 
 	return env->env_ipc_value;
 }
+
+void broadcast(u_int envid, u_int val, void * srcva, u_int perm){
+	struct Env *e = NULL;
+	for(int i = 0;i < NENV; i++){
+		if(envs[i].env_parent_id == envid){
+			e = &envs[i];
+			ipc_send(e->env_id, val, srcva, perm);
+			broadcast(e->env_id, val, srcva, perm);
+		}
+	}
+}
+
+void ipc_broadcast(u_int val, void * srcva, u_int perm){
+	broadcast(env->env_id, val, srcva, perm);
+}

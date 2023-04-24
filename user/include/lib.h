@@ -13,6 +13,8 @@
 #define envs ((volatile struct Env *)UENVS)
 #define pages ((volatile struct Page *)UPAGES)
 
+void ipc_broadcast(u_int val, void * srcva, u_int perm);
+
 // libos
 void exit(void) __attribute__((noreturn));
 
