@@ -13,7 +13,7 @@ int block_is_free(u_int);
 // Hint: Use 'DISKMAP' and 'BY2BLK' to calculate the address.
 void *diskaddr(u_int blockno) {
 	/* Exercise 5.6: Your code here. */
-
+        return (void *)(DISKMAP + BY2BLK * blockno);
 }
 
 // Overview:
@@ -138,11 +138,11 @@ int map_block(u_int blockno) {
 	// Step 1: If the block is already mapped in cache, return 0.
 	// Hint: Use 'block_is_mapped'.
 	/* Exercise 5.7: Your code here. (1/5) */
-
+        if(block_is_mapped(blockno)) return 0;
 	// Step 2: Alloc a page in permission 'PTE_D' via syscall.
 	// Hint: Use 'diskaddr' for the virtual address.
 	/* Exercise 5.7: Your code here. (2/5) */
-
+        return syscall_mem_alloc(0, diskaddr(blockno), PTE_D);
 }
 
 // Overview:
@@ -151,15 +151,18 @@ void unmap_block(u_int blockno) {
 	// Step 1: Get the mapped address of the cache page of this block using 'block_is_mapped'.
 	void *va;
 	/* Exercise 5.7: Your code here. (3/5) */
-
+        va = block_is_mapped(blockno);
+	if(va == NULL) return;
 	// Step 2: If this block is used (not free) and dirty in cache, write it back to the disk
 	// first.
 	// Hint: Use 'block_is_free', 'block_is_dirty' to check, and 'write_block' to sync.
 	/* Exercise 5.7: Your code here. (4/5) */
-
+        if(!block_is_free(blockno) && block_is_dirty(blockno)){
+		write_block(blockno);
+	}
 	// Step 3: Unmap the virtual address via syscall.
 	/* Exercise 5.7: Your code here. (5/5) */
-
+        syscall_mem_unmap(0, diskaddr(blockno));
 	user_assert(!block_is_mapped(blockno));
 }
 
@@ -186,11 +189,11 @@ void free_block(u_int blockno) {
 	// You can refer to the function 'block_is_free' above.
 	// Step 1: If 'blockno' is invalid (0 or >= the number of blocks in 'super'), return.
 	/* Exercise 5.4: Your code here. (1/2) */
-
+        if(super == 0 || blockno == 0 || blockno >= super->s_nblocks) return;
 	// Step 2: Set the flag bit of 'blockno' in 'bitmap'.
 	// Hint: Use bit operations to update the bitmap, such as b[n / W] |= 1 << (n % W).
 	/* Exercise 5.4: Your code here. (2/2) */
-
+        bitmap[blockno / 32] |= 1 << (blockno % 32);
 }
 
 // Overview:
@@ -489,13 +492,16 @@ int dir_lookup(struct File *dir, char *name, struct File **file) {
 	// Step 1: Calculate the number of blocks in 'dir' via its size.
 	u_int nblock;
 	/* Exercise 5.8: Your code here. (1/3) */
-
+        nblock = dir->f_size / BY2BLK;
+	if(nblock * BY2BLK < dir->f_size) nblock++;
 	// Step 2: Iterate through all blocks in the directory.
 	for (int i = 0; i < nblock; i++) {
 		// Read the i'th block of 'dir' and get its address in 'blk' using 'file_get_block'.
 		void *blk;
 		/* Exercise 5.8: Your code here. (2/3) */
-
+                if((r = file_get_block(dir, i, &blk)) < 0){
+			return r;
+		}
 		struct File *files = (struct File *)blk;
 
 		// Find the target among all 'File's in this block.
@@ -504,7 +510,11 @@ int dir_lookup(struct File *dir, char *name, struct File **file) {
 			// If we find the target file, set '*file' to it and set up its 'f_dir'
 			// field.
 			/* Exercise 5.8: Your code here. (3/3) */
-
+                        if(strcmp(name, f->f_name) == 0){
+				*file = f;
+				f->f_dir = dir;
+				return 0;
+			}
 		}
 	}
 
