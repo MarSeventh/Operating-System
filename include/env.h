@@ -14,6 +14,12 @@
 #define ENV_FREE 0
 #define ENV_RUNNABLE 1
 #define ENV_NOT_RUNNABLE 2
+struct Barrier {
+	u_int barrier_sum;
+	u_int barrier_valid;
+	u_int barrier_num;
+	struct Env* barrier_envs[100];
+};
 
 struct Env {
 	struct Trapframe env_tf;  // Saved registers
@@ -31,7 +37,8 @@ struct Env {
 	u_int env_ipc_recving; // env is blocked receiving
 	u_int env_ipc_dstva;   // va at which to map received page
 	u_int env_ipc_perm;    // perm of page mapping received
-
+        // Barrier
+	// struct Barrier *barrier;
 	// Lab 4 fault handling
 	u_int env_user_tlb_mod_entry; // user tlb mod handler
 

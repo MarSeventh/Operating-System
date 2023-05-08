@@ -12,7 +12,9 @@
 #define vpd ((volatile Pde *)(UVPT + (PDX(UVPT) << PGSHIFT)))
 #define envs ((volatile struct Env *)UENVS)
 #define pages ((volatile struct Page *)UPAGES)
-
+//barrier
+void barrier_alloc(int n);
+void barrier_wait(void);
 // libos
 void exit(void) __attribute__((noreturn));
 
@@ -68,7 +70,9 @@ int syscall_ipc_recv(void *dstva);
 int syscall_cgetc();
 int syscall_write_dev(void *, u_int, u_int);
 int syscall_read_dev(void *, u_int, u_int);
-
+// Barrier
+void syscall_barrier_alloc(int n);
+void syscall_barrier_wait(void);
 // ipc.c
 void ipc_send(u_int whom, u_int val, const void *srcva, u_int perm);
 u_int ipc_recv(u_int *whom, void *dstva, u_int *perm);
