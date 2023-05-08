@@ -37,3 +37,31 @@ u_int ipc_recv(u_int *whom, void *dstva, u_int *perm) {
 
 	return env->env_ipc_value;
 }
+
+int sem_init(const char *name, int init_value, int checkperm) {
+	if((r = syscall_sem_init(name, value, checkperm)) < 0) {
+		return -E_NO_SEM;
+	}
+	return r;
+}
+
+int sem_wait(int sem_id) {
+	if((r = syscall_sem_wait(sem_id) != 0)) {
+		return r;
+	}
+	return 0;
+}
+
+int sem_post(int sem_id) {
+	if((r = syscall_sem_post(sem_id)) != 0) {
+		return r;
+	}
+	return 0;
+}
+
+int sem_getvalue(int sem_id) {
+	if((r = syscall_sem_getvalue(sem_id)) < 0) {
+		return r;
+	}
+	return r;
+}
