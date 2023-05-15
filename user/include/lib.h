@@ -19,6 +19,9 @@ void exit(void) __attribute__((noreturn));
 extern volatile struct Env *env;
 
 #define USED(x) (void)(x)
+//usleep
+u_int get_time(u_int *us);
+void usleep(u_int us);
 
 // debugf
 void debugf(const char *fmt, ...);
