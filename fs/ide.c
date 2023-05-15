@@ -6,7 +6,94 @@
 #include <drivers/dev_disk.h>
 #include <lib.h>
 #include <mmu.h>
+int map[32];
+int ssd[32];
+int erase[32];
+void ssd_init() {
+	for(int i = 0; i < 32; i++) {
+		map[i] = -1;
+	}
+	for(int i = 0; i < 32; i++) {
+		ssd[i] = 1;
+	}
+	for(int i = 0; i < 32; i++) {
+		erase[i] = 0;
+	}
+}
 
+int ssd_read(u_int logic_no, void *dst) {
+	if(map[logic_no] == -1) {
+		return -1;
+	} else {
+		ide_read(0, map[logic_no], dst, 1);
+		return 0;
+	}
+}
+
+void py_erase(u_int py_no) {
+	char eraser[512];
+	memset(eraser, 0, 512);
+	ide_write(0, py_no, eraser, 1);
+	erase[py_no]++;
+	ssd[py_no] = 1;
+}
+
+u_int alloc_ssd() {
+	int min = -1;
+	int minid = -1;
+	for(int i = 0; i < 32; i++) {
+		if(ssd[i] == 1 && (min == -1 || erase[i] < min)) {
+			min = erase[i];
+			minid = i;
+		}
+	}
+	if(min >= 5) {
+		int no_min = -1;
+		int no_minid = -1;
+		for(int i = 0; i < 32; i++) {
+			if(ssd[i] == 0 && (no_min == -1 || erase[i] < no_min)) {
+				no_min = erase[i];
+				no_minid = i;
+			}
+		}
+		char temp[512];
+		ide_read(0, no_minid, temp, 1);
+		ide_write(0, minid, temp, 1);
+		ssd[minid] = 0;
+		int pre_logic = 0;
+		for(int j = 0; j < 32; j++) {
+			if(map[j] == no_minid) {
+				pre_logic = j;
+				break;
+			}
+		}
+		map[pre_logic] = minid;
+		py_erase(no_minid);
+		minid = no_minid;
+	}
+	ssd[minid] = 0;
+	return minid;
+}
+void ssd_write(u_int logic_no, void *src) {
+	if(map[logic_no] == -1) {
+		u_int py_no = alloc_ssd();
+		map[logic_no] = py_no;
+		ide_write(0, py_no, src, 1);
+	} else {
+		u_int py_no = map[logic_no];
+		py_erase(py_no);
+		py_no = alloc_ssd();
+		map[logic_no] = py_no;
+		ide_write(0, py_no, src, 1);
+	}
+}
+
+void ssd_erase(u_int logic_no) {
+	if(map[logic_no] != -1) {
+		py_erase(map[logic_no]);
+		map[logic_no] = -1;
+	}
+}
 // Overview:
 //  read data from IDE disk. First issue a read request through
 //  disk register and then copy data from disk buffer
