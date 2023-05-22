@@ -19,6 +19,52 @@ struct Dev devfile = {
     .dev_stat = file_stat,
 };
 
+int openat(int dirfd, const char *path, int mode) {
+	int r;
+	// Step 1: Alloc a new 'Fd' using 'fd_alloc' in fd.c.
+	// Hint: return the error code if failed.
+	struct Fd *fd;
+	/* Exercise 5.9: Your code here. (1/5) */
+        if((r = fd_alloc(&fd)) < 0) {
+		return r;
+	}
+
+	struct Fd *dir;
+	struct Filefd *fdir;
+	fd_lookup(dirfd, &dir);
+	fdir = (struct Filefd *)dir;
+	int dir_fileid;
+	dir_fileid = fdir->f_fileid;
+	if((r = fsipc_openat(dir_fileid, path, mode, fd)) < 0) {
+		return r;
+	}
+
+	char *va;
+	struct Filefd *ffd;
+	u_int size, fileid;
+	/* Exercise 5.9: Your code here. (3/5) */
+        va = fd2data(fd);
+	ffd = (struct Filefd *)fd;
+	size = ffd->f_file.f_size;
+	fileid = ffd->f_fileid;
+	// Step 4: Alloc pages and map the file content using 'fsipc_map'.
+	for (int i = 0; i < size; i += BY2PG) {
+		/* Exercise 5.9: Your code here. (4/5) */
+                if((r = fsipc_map(fileid, i, va + i)) < 0) {
+			return r;
+		}
+	}
+
+	// Step 5: Return the number of file descriptor using 'fd2num'.
+	/* Exercise 5.9: Your code here. (5/5) */
+        return fd2num(fd);
+}
+
+
+
+
+
+
 // Overview:
 //  Open a file (or directory).
 //
