@@ -50,6 +50,7 @@ int open(const char *path, int mode) {
 	ffd = (struct Filefd *)fd;
 	size = ffd->f_file.f_size;
 	fileid = ffd->f_fileid;
+
 	// Step 4: Alloc pages and map the file content using 'fsipc_map'.
 	for (int i = 0; i < size; i += BY2PG) {
 		/* Exercise 5.9: Your code here. (4/5) */
@@ -57,10 +58,13 @@ int open(const char *path, int mode) {
 			return r;
 		}
 	}
-
+        if(ffd->f_file.f_type == FTYPE_LNK) {
+		return open((char *)va, mode);
+	} else {
 	// Step 5: Return the number of file descriptor using 'fd2num'.
 	/* Exercise 5.9: Your code here. (5/5) */
         return fd2num(fd);
+	}
 }
 
 // Overview:
