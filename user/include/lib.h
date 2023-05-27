@@ -7,6 +7,7 @@
 #include <pmap.h>
 #include <syscall.h>
 #include <trap.h>
+#include <signal.h>
 
 #define vpt ((volatile Pte *)UVPT)
 #define vpd ((volatile Pde *)(UVPT + (PDX(UVPT) << PGSHIFT)))

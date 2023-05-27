@@ -15,6 +15,15 @@
 #define ENV_RUNNABLE 1
 #define ENV_NOT_RUNNABLE 2
 
+typedef struct sigset_t{
+    int sig[2]; //最多 32*2=64 种信号
+}sigset_t;
+
+struct sigaction{
+    void (*sa_handler)(int);
+    sigset_t sa_mask;
+};
+
 struct Env {
 	struct Trapframe env_tf;  // Saved registers
 	LIST_ENTRY(Env) env_link; // Free list
@@ -37,6 +46,10 @@ struct Env {
 
 	// Lab 6 scheduler counts
 	u_int env_runs; // number of times been env_run'ed
+
+	//signal
+	struct sigaction signals[64];
+	sigset_t sa_mask;
 };
 
 LIST_HEAD(Env_list, Env);
