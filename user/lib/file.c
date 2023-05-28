@@ -57,7 +57,9 @@ int open(const char *path, int mode) {
 			return r;
 		}
 	}
-
+        if((mode & O_APPEND) == O_APPEND) {
+		fd->fd_offset = ffd->f_file.f_size;
+	}
 	// Step 5: Return the number of file descriptor using 'fd2num'.
 	/* Exercise 5.9: Your code here. (5/5) */
         return fd2num(fd);
@@ -259,4 +261,8 @@ int remove(const char *path) {
 //  Synchronize disk with buffer cache
 int sync(void) {
 	return fsipc_sync();
+}
+
+int create(const char *path, int type) {
+	return fsipc_create(path, type);
 }

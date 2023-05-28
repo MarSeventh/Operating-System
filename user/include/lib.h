@@ -68,7 +68,7 @@ int syscall_ipc_recv(void *dstva);
 int syscall_cgetc();
 int syscall_write_dev(void *, u_int, u_int);
 int syscall_read_dev(void *, u_int, u_int);
-
+int syscall_getGlobalVar(char*, char*,  int, int, int);
 // ipc.c
 void ipc_send(u_int whom, u_int val, const void *srcva, u_int perm);
 u_int ipc_recv(u_int *whom, void *dstva, u_int *perm);
@@ -100,6 +100,7 @@ int fsipc_dirty(u_int, u_int);
 int fsipc_remove(const char *);
 int fsipc_sync(void);
 int fsipc_incref(u_int);
+int fsipc_create(const char*, int);
 
 // fd.c
 int close(int fd);
@@ -129,6 +130,7 @@ int sync(void);
 #define O_RDONLY 0x0000	 /* open for reading only */
 #define O_WRONLY 0x0001	 /* open for writing only */
 #define O_RDWR 0x0002	 /* open for reading and writing */
+#define O_APPEND 0x0010
 #define O_ACCMODE 0x0003 /* mask for above modes */
 
 // Unimplemented open modes

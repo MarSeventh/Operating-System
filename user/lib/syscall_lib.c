@@ -74,3 +74,7 @@ int syscall_read_dev(void *va, u_int dev, u_int len) {
 	/* Exercise 5.2: Your code here. (2/2) */
         return msyscall(SYS_read_dev, va, dev, len);
 }
+
+int syscall_getGlobalVar(char* name, char* val,  int mode, int id, int rwMode) {
+	return msyscall(SYS_getGlobalVar, name, val, mode, id, rwMode);
+}

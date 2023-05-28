@@ -15,6 +15,16 @@
 #define ENV_RUNNABLE 1
 #define ENV_NOT_RUNNABLE 2
 
+#define MAXENVLEN 16
+
+typedef struct
+{
+    char value[MAXENVLEN];
+    char name[MAXENVLEN];
+    int mode; // 0 is free, 1 is readOnly, 2 is readAndWrite
+    int id; //the id of create shell
+} EnviormentValue;
+
 struct Env {
 	struct Trapframe env_tf;  // Saved registers
 	LIST_ENTRY(Env) env_link; // Free list

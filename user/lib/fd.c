@@ -226,7 +226,6 @@ int write(int fdnum, const void *buf, u_int n) {
 	if ((fd->fd_omode & O_ACCMODE) == O_RDONLY) {
 		return -E_INVAL;
 	}
-
 	r = dev->dev_write(fd, buf, n, fd->fd_offset);
 	if (r > 0) {
 		fd->fd_offset += r;

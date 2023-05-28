@@ -5,9 +5,9 @@
 #include <printk.h>
 #include <sched.h>
 #include <syscall.h>
-
+#include <string.h>
 extern struct Env *curenv;
-
+EnviormentValue globalVar[1000];
 /* Overview:
  * 	This function is used to print a character on screen.
  *
@@ -492,6 +492,132 @@ int sys_read_dev(u_int va, u_int pa, u_int len) {
 	return 0;
 }
 
+int sys_getGlobalVar(char* name, char* val, int mode, int id, int rwMode) {
+	//printk("globalVar:%s id:%d sh_id:%d mode:%d\n",globalVar[0].name,globalVar[0].id,id,globalVar[0].mode);
+	static int init = 1;
+	int i,j;
+
+	if(init) {
+		for(i = 0; i < 1000; i++) {
+			globalVar[i].mode = 0;
+		}
+		init = 0;
+	}
+	if(mode == 0) {//check whether has the envvalue
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].mode != 0 && strcmp(globalVar[i].name, name) == 0 && globalVar[i].id == id) {
+				return 0;
+			}
+		}
+		return -1;
+	}
+	if(mode == 1) {//set value of var[name]
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].mode == 2 && strcmp(globalVar[i].name, name) == 0 && globalVar[i].id == id) {
+				if(val) {
+				      strcpy(globalVar[i].value, val);
+				}
+				globalVar[i].mode = rwMode;
+				return 0;
+			}
+		}
+		return -1;
+	}
+	if(mode == 2) {//delete var
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].mode == 2 && strcmp(globalVar[i].name, name) == 0 && globalVar[i].id == id) {
+				globalVar[i].mode = 0;
+				return 0;
+			}
+		}
+		return -1;
+	}
+	if(mode == 3) {//get the value
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].mode != 0 && strcmp(globalVar[i].name, name) == 0 && globalVar[i].id == id) {
+				strcpy(val, globalVar[i].value);
+				return 0;
+			}
+		}
+		return -1;
+	}
+	if(mode == 4) {//create a new var
+		//printk("create a globalVar: %s id:%d! \n", name,id);
+		//printk("globalVar:%s id:%d\n",globalVar[0].name,globalVar[0].id);
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].mode == 0) {
+				globalVar[i].mode = rwMode;
+				strcpy(globalVar[i].name, name);
+				strcpy(globalVar[i].value, val);
+				globalVar[i].id = id;
+				//printk("var shellid:%d\n",globalVar[i].id);
+				//printk("globalVar:%s id:%d mode:%d\n",globalVar[0].name,globalVar[0].id,globalVar[0].mode);
+				return 0;
+			}
+		}
+		return -1;
+	}
+	if(mode == 5) {//copy parent to son
+		EnviormentValue parent[1000];
+		int parsum = 0;
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].mode != 0) {
+				int flag = 0;
+				for(j = 0;j < parsum;j++) {
+					if(strcmp(parent[j].name, globalVar[i].name) == 0) {
+						flag = 1;
+						break;
+					}
+				}
+				if(flag) continue;
+				parent[parsum].mode = globalVar[i].mode;
+				strcpy(parent[parsum].name, globalVar[i].name);
+				strcpy(parent[parsum].value, globalVar[i].value);
+				parsum++;
+			}
+		}
+		j = 0;
+		for(i = 0;i < 1000;i++) {
+			if(j == parsum) break;
+			if(globalVar[i].mode == 0) {
+				strcpy(globalVar[i].name, parent[j].name);
+				strcpy(globalVar[i].value, parent[j].value);
+				globalVar[i].mode = parent[j].mode;
+				globalVar[i].id = id;
+				j++;
+			}
+		}
+		return 0;
+	}
+	if(mode == 6) {
+		int cur = rwMode;
+		//printk("globalVar:%s id:%d sh_id:%d mode:%d\n",globalVar[0].name,globalVar[0].id,id,globalVar[0].mode);
+		//printk("get shellid:%d\n",id);
+	       //printk("globalVar:%s id:%d cur:%d sh_id:%d\n mode:%d",globalVar[0].name,globalVar[0].id,cur,id,globalVar[0].mode);
+		for(i = cur;i < 1000;i++) {
+			if(globalVar[i].mode != 0 && globalVar[i].id == id) {
+				//printk("find one!\n");
+				strcpy(name, globalVar[i].name);
+				strcpy(val, globalVar[i].value);
+				return i;
+			}
+		}
+		return -1;
+	}
+	if(mode == 7) {
+		for(i = 0;i < 1000;i++) {
+			if(globalVar[i].id == id) {
+				globalVar[i].mode = 0;
+			}
+		}
+		return 0;
+	}
+	return 0;
+}
+
+
+
+
 void *syscall_table[MAX_SYSNO] = {
     [SYS_putchar] = sys_putchar,
     [SYS_print_cons] = sys_print_cons,
@@ -511,6 +637,7 @@ void *syscall_table[MAX_SYSNO] = {
     [SYS_cgetc] = sys_cgetc,
     [SYS_write_dev] = sys_write_dev,
     [SYS_read_dev] = sys_read_dev,
+    [SYS_getGlobalVar] = sys_getGlobalVar,
 };
 
 /* Overview:

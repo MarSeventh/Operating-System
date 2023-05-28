@@ -37,6 +37,7 @@
 // Shared memmory. Reserved for software, used by fork.
 #define PTE_LIBRARY 0x0004
 
+#define PTE_FORK 0x0008
 // Memory segments (32-bit kernel mode addresses)
 #define KUSEG 0x00000000U
 #define KSEG0 0x80000000U
