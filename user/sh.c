@@ -18,6 +18,8 @@
 int hang = 1;
 int newcmd = 1;
 int sh_id = 0;
+int dupl = 0;
+int dupr = 0;
 EnviormentValue localVar[100];
 
 void getVar(char *name) {
@@ -348,7 +350,7 @@ int parsecmd(char **argv, int *rightpipe) {
 			dup(fd, 0);
 			close(fd); 
 			//user_panic("< redirection not implemented");
-
+                        dupl = 1;
 			break;
 		case '>':
 			if (gettoken(0, &t) != 'w') {
@@ -361,7 +363,7 @@ int parsecmd(char **argv, int *rightpipe) {
 			dup(fd, 1);
 			close(fd);
 			//user_panic("> redirection not implemented");
-
+                        dupr = 1;
 			break;
 		case '|':;
 			/*
