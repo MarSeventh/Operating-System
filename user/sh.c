@@ -611,7 +611,7 @@ int main(int argc, char **argv) {
 	syscall_mem_map(0, localVar, 0, localVar, PTE_V | PTE_D | PTE_FORK);
 	debugf("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 	debugf("::                                                         ::\n");
-	debugf("::                     MOS Shell 2023                      ::\n");
+	debugf("::                   MOS Shell Pro Max                     ::\n");
 	debugf("::                                                         ::\n");
 	debugf(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 	ARGBEGIN {
