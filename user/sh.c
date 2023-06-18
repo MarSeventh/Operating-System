@@ -645,6 +645,9 @@ int main(int argc, char **argv) {
 		if (buf[0] == '#') {
 			continue;
 		}
+		if (buf[0] == '!') {
+			break;
+		}
 		if (echocmds) {
 			printf("# %s\n", buf);
 		}
