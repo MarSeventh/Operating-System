@@ -145,7 +145,7 @@
 
 系统调用的实现，基本都遵循以下流程：
 
-> ![image-20230427212323695](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230427212323695.png)
+> ![image-20230427212323695](https://alist.sanyue.site/d/imgbed/202311252222169.png)
 
 简单地说，一个系统调用的实现需要分为用户态的执行操作和内核态的执行操作。用户态的syscall\_\*函数和内核态的sys\_\*函数一一对应，syscall\_\*函数主要负责将将传入的参数压入栈帧，然后调用msyscall函数，并将参数传递给它。msyscall函数只需调用syscall陷入内核态然后返回即可。陷入内核态后，entry.S中的SAVE_ALL首先会把用户态的运行现场保存在Trapframe中，然后将其指针作为参数传递给handle_sys函数，该函数会调用do\_syscall函数，该函数通过传入的Trapframe来从异常向量表中选取相应的处理函数sys\_\*，将Trapframe中保存的参数传递给sys\_\*，然后sys\_\*执行对应的系统调用操作。完成操作之后返回到用户态的执行现场。
 
@@ -157,7 +157,7 @@
 
 IPC的流程图如下：
 
-> ![image-20230427220137680](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230427220137680.png)
+> ![image-20230427220137680](https://alist.sanyue.site/d/imgbed/202311252222753.png)
 
 主要就是实现sys\_ipc\_recv和sys\_ipc\_try\_send两个函数，分别负责消息的接收和传递。这两个函数在自己的用户态下设定好需要发送或接收的状态后，都会进行系统调用来讲数据写入内核或者从内核读出数据，这样也就实现了两个进程之间的消息通信。
 
@@ -165,7 +165,7 @@ IPC的流程图如下：
 
 fork函数作为本次实验最难的一部分，其实现也比较复杂，我们首先观察fork函数的流程图，了解其大致过程。
 
-> ![image-20230427220638286](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230427220638286.png)
+> ![image-20230427220638286](https://alist.sanyue.site/d/imgbed/202311252222702.png)
 
 根据流程图，我们来依次分析其中几个关键点。
 
