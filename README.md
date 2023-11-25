@@ -141,7 +141,7 @@ MIPS架构：MIPS架构的内存管理只采用了分页的方式，每个进程
 >
 > 具体如下图：
 >
-> ![image-20230327171038476](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230327171038476.png)
+> ![image-20230327171038476](https://alist.sanyue.site/d/imgbed/202311252220647.png)
 
 **第二个难点**在于掌握空闲链表的使用以及Page结构体和物理页面的转化：
 
@@ -182,13 +182,13 @@ MIPS架构：MIPS架构的内存管理只采用了分页的方式，每个进程
 
 > 具体流程如下图：
 >
-> ![image-20230327173035730](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230327173035730.png)
+> ![image-20230327173035730](https://alist.sanyue.site/d/imgbed/202311252221068.png)
 >
 > 要注意每一级页表存的都是下一级的物理页号。
 >
 > 访问页目录以及填充页表项的函数具体流程如下图：
 >
-> ![image-20230327175601520](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230327175601520.png)
+> ![image-20230327175601520](https://alist.sanyue.site/d/imgbed/202311252221856.png)
 >
 > 注意掌握`page_insert`、`page_lookup`和`page_remove`函数的功能和实现方式。
 
@@ -216,7 +216,7 @@ MIPS架构：MIPS架构的内存管理只采用了分页的方式，每个进程
 
 页目录自映射的具体过程如下图：
 
-> ![image-20230327212436215](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230327212436215.png)
+> ![image-20230327212436215](https://alist.sanyue.site/d/imgbed/202311252221366.png)
 >
 > 其中巧妙之处便在于，页目录中总有一个页目录项会映射到该页目录自身的物理地址，并且页目录自身虚拟地址和自映射项的虚拟地址都可以通过计算得出。因此可以更加方便地寻找到页目录的物理地址。
 
