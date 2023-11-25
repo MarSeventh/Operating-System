@@ -66,7 +66,7 @@ timer_irq:
 
 在Lab3中，我们实现了进程的创建、时钟中断的产生以及根据时钟中断进行进程调度三大任务，本次实验在MOS中的概况如下图所示：
 
-![image-20230413101109248](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230413101109248.png)
+![image-20230413101109248](https://alist.sanyue.site/d/imgbed/202311252221322.png)
 
 回顾整个Lab3实验，可以说每一部分都有一些不易理解的点。
 
