@@ -253,7 +253,7 @@
 
 * ELF的文件结构如下图：
 
-  ![image-20230318125949301](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230318125949301.png)
+  ![image-20230318125949301](https://alist.sanyue.site/d/imgbed/202311252220412.png)
 
 * ELF头的结构如下：
 
@@ -348,7 +348,7 @@
 
 * 内存布局图如下：
 
-  ![image-20230318130926328](C:\Users\King.xx\AppData\Roaming\Typora\typora-user-images\image-20230318130926328.png)
+  ![image-20230318130926328](https://alist.sanyue.site/d/imgbed/202311252220886.png)
 
 ## 心得体会
 
