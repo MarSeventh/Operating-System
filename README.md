@@ -216,7 +216,7 @@ Date:   Wed Mar 1 14:09:55 2023 +0800
 
 **1、下面对于Git进行版本管理的方式，即Git的三棵树采用示意图的方式进行总结：**
 
-![Git三棵树](D:\OS\Git三棵树.png)
+![Git三棵树](https://alist.sanyue.site/d/imgbed/202311252218017.png)
 
 **2、下面对C语言的编译过程进行总结：**
 
